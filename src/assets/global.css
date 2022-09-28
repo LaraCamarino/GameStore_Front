@@ -1,0 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #4D4D4D;
+}
+
+html {
+    scroll-behavior: smooth;
+  }

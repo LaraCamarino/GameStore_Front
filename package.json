@@ -1,11 +1,17 @@
 {
-  "name": "projeto-autoral",
+  "name": "front-end",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.27.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3"
+    "react-icons": "^4.4.0",
+    "react-loader-spinner": "^5.3.4",
+    "react-router-dom": "^6.4.1",
+    "react-scripts": "^4.0.3",
+    "styled-components": "^5.3.6",
+    "sweetalert2": "^11.4.36"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,5 +35,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
+    "cypress": "^10.9.0"
   }
 }
