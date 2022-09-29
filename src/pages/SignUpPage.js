@@ -4,13 +4,14 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { ThreeDots } from "react-loader-spinner";
+import * as Alerts from "../components/Alerts";
 
 export default function SignUpPage() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -23,8 +24,8 @@ export default function SignUpPage() {
           required
           type="text"
           placeholder="Name"
-          value={user.name}
-          onChange={(e) => setUser({ ...user, name: e.target.value })}
+          value={user.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
           minLength={2}
           maxLength={15}
           disabled={loading}
@@ -76,15 +77,16 @@ export default function SignUpPage() {
     const promise = axios.post(URL, user);
 
     promise.then(() => {
+      Alerts.smallAlert("sucess", "User registered successfully.");
       navigate("/sign-in");
     });
     promise.catch((err) => {
-      alert(err.response.data);
+      Alerts.errorAlert(err.response.data);
       setUser({
+        username: "",
         email: "",
         password: "",
-        username: "",
-        pictureUrl: "",
+        confirmPassword: "",
       });
       setLoading(false);
     });

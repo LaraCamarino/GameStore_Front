@@ -4,6 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 import { ThreeDots } from "react-loader-spinner";
+import * as Alerts from "../components/Alerts";
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ export default function SignInPage() {
       navigate("/");
     });
     promise.catch((err) => {
-      alert(err.response.data);
+      Alerts.smallAlert("error", err.response.data);
       setUser({
         email: "",
         password: "",
