@@ -77,7 +77,7 @@ export default function SignUpPage() {
     const promise = axios.post(URL, user);
 
     promise.then(() => {
-      Alerts.smallAlert("sucess", "User registered successfully.");
+      Alerts.smallAlert("success", "User registered successfully.");
       navigate("/sign-in");
     });
     promise.catch((err) => {
