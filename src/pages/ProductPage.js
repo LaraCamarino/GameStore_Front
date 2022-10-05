@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
+
+import UserContext from "../contexts/UserContext";
 
 import { ThreeDots } from "react-loader-spinner";
 import * as Alerts from "../components/Alerts";
@@ -9,6 +11,8 @@ import * as Alerts from "../components/Alerts";
 export default function ProductPage() {
   const navigate = useNavigate();
   const { productId } = useParams();
+
+  const { shoppingCart, setShoppingCart } = useContext(UserContext);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -87,7 +91,7 @@ export default function ProductPage() {
   }
 
   function buyProduct() {
-    alert("Clicked.");
+    setShoppingCart([...shoppingCart, product]);
   }
 
   return (
@@ -104,7 +108,6 @@ export default function ProductPage() {
 const Page = styled.div`
   min-height: 100vh;
   width: 100%;
-  margin-top: 90px;
 `;
 
 const Container = styled.div`
@@ -131,17 +134,19 @@ const Image = styled.img`
 `;
 
 const Text = styled.div`
+  width: 520px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 520px;
+
   h1 {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 700;
+    color: white;
   }
   h2 {
     font-size: 30px;
-    color: #787878;
+    color: white;
   }
   @media (max-width: 913px) {
     padding: 15px;
@@ -157,17 +162,19 @@ const Buttons = styled.div`
     width: 40%;
     padding: 12px 15px;
     margin-right: 25px;
-    background-color: #2f2f2f;
-    border-radius: 5px;
-    border: 1px solid #888888;
-    box-shadow: 0px 2px 2px #888888;
     font-size: 14px;
     font-weight: 700;
     color: #ffff;
+    outline: none;
+    border-radius: 6px;
+    border: none;
+    background: linear-gradient(90deg, #743ad5, #d53a9d);
+    background-size: 400%;
+    text-transform: uppercase;
+
     :active,
     :focus,
     :hover {
-      outline: none;
       border-color: black;
       cursor: pointer;
     }

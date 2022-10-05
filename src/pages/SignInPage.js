@@ -85,7 +85,6 @@ const Page = styled.div`
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  margin-top: 90px;
   form {
     width: 100%;
     display: flex;
@@ -96,26 +95,34 @@ const Page = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 40px;
+  font-size: 45px;
   display: flex;
   justify-content: center;
-  margin-bottom: 80px;
+  margin-bottom: 65px;
 `;
 
 const Input = styled.input`
   width: 30%;
   padding: 10px 10px 3px 24px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   transition: 0.2s;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, #743ad5, #d53a9d);
+  border-image-slice: 1;
+  background: none;
+  color: #ffff;
+  font-size: 15px;
+
   ::placeholder {
+    outline: none;
     font-size: 15px;
-  }
-  :active,
-  :focus,
-  :hover {
-    border: 2px solid black;
+    color: #a4a4a4;
+    font-family: "Montserrat";
   }
   :valid {
+    border-image: none;
     border-color: #03ac00;
   }
   @media (max-width: 768px) {
@@ -125,7 +132,12 @@ const Input = styled.input`
 
 const Button = styled.button`
   width: 25%;
-  background-color: #2f2f2f;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #743ad5, #d53a9d);
+  background-size: 400%;
+  margin-top: 10px;
   padding: 16px 20px;
   display: flex;
   justify-content: center;
@@ -134,12 +146,11 @@ const Button = styled.button`
   font-weight: 700;
   color: #ffff;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: 0.2s;
+
   :active,
   :focus,
   :hover {
-    outline: none;
+    cursor: pointer;
     border-color: black;
   }
   @media (max-width: 768px) {
@@ -151,6 +162,6 @@ const SignUpLink = styled(Link)`
   margin-top: 30px;
   font-size: 15px;
   font-weight: 700;
-  color: #2f2f2f;
+  color: #ffff;
   text-decoration: none;
 `;

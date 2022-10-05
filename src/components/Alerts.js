@@ -25,6 +25,16 @@ export function errorAlert(message) {
     text: message,
     icon: "error",
     confirmButtonText: "OK",
-    confirmButtonColor: "#2F2F2F",
+    confirmButtonColor: "#743ad5",
+  });
+}
+
+export function warningAlert(title, message) {
+  return Swal.fire({
+    title: title,
+    text: message,
+    icon: "warning",
+    confirmButtonText: "OK",
+    confirmButtonColor: "#743ad5",
   });
 }
