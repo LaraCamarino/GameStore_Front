@@ -34,7 +34,7 @@ export default function CategoryPage() {
     });
   }
 
-  useEffect(() => getProductsByCategory(), []);
+  useEffect(() => getProductsByCategory(), [category]);
 
   function assembleProducts() {
     if (error) {
@@ -99,8 +99,8 @@ export default function CategoryPage() {
 }
 
 const Page = styled.div`
-  min-height: 100vh;
   width: 100%;
+  padding: 50px;
 `;
 
 const Title = styled.div`
@@ -109,7 +109,6 @@ const Title = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 40px;
-  padding-left: 20px;
   font-size: 50px;
   text-transform: capitalize;
 `;
@@ -124,9 +123,8 @@ const Text = styled.h1`
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding: 0px 220px;
 `;
 
 const ProductBox = styled.div`
@@ -140,10 +138,11 @@ const ProductBox = styled.div`
     border: none;
     outline: none;
     background: linear-gradient(90deg, #743ad5, #d53a9d);
-    background-size: 400%;
+    background-size: 200%;
     position: absolute;
     right: 40px;
     bottom: 20px;
+    cursor: pointer;
   }
 `;
 

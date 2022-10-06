@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 
 import UserContext from "./contexts/UserContext";
 
+import Header from "./components/Header";
+
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import CategoryPage from "./pages/CategoryPage";
@@ -20,6 +22,7 @@ export default function App() {
   return (
     <UserContext.Provider value={{ shoppingCart, setShoppingCart }}>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />

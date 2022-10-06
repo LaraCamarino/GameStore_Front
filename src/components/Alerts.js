@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 const SmallAlert = Swal.mixin({
   toast: true,
   position: "top-end",
+  width: "450",
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: false,
