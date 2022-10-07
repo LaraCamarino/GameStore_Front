@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage";
+import SearchPage from "./pages/SearchPage";
 import CartPage from "./pages/CartPage";
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/categories/:category" element={<CategoryPage />} />
           <Route path="/product/:productId" element={<ProductPage />} />
+          <Route path="/search/:productName" element={<SearchPage />} />
           <Route path="/cart" element={<CartPage />} />
         </Routes>
       </BrowserRouter>

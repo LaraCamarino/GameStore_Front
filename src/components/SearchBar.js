@@ -8,19 +8,28 @@ export default function SearchBar() {
 
   const [search, setSearch] = useState("");
 
+  function goSearch(event) {
+    event.preventDefault();
+    navigate(`/search/${search}`);
+    setSearch("");
+  }
+
   return (
     <SearchBarBox>
-      <input
-        type="text"
-        placeholder="Search products here..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      ></input>
-      <HiSearch
-        onClick={() => {
-          navigate(`/search/${search}`);
-        }}
-      />
+      <form onSubmit={goSearch}>
+        <input
+          type="text"
+          placeholder="Search products here..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        ></input>
+        <HiSearch
+          onClick={() => {
+            navigate(`/search/${search}`);
+            setSearch("");
+          }}
+        />
+      </form>
     </SearchBarBox>
   );
 }
