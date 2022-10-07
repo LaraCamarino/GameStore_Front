@@ -58,11 +58,8 @@ export default function CategoryPage() {
       <>
         <Title>{category}</Title>
         {products.map((product, index) => (
-          <ProductBox>
-            <Product
-              key={index}
-              onClick={() => navigate(`/product/${product.id}`)}
-            >
+          <ProductBox key={index}>
+            <Product onClick={() => navigate(`/product/${product.id}`)}>
               <Image src={product.imageUrl}></Image>
               <h1>{product.name}</h1>
               <h2>${product.price}</h2>
@@ -81,7 +78,18 @@ export default function CategoryPage() {
   }
 
   function addToCart(product) {
-    setShoppingCart([...shoppingCart, product]);
+    let newCart = [...shoppingCart];
+    let productAlreadyInCart = shoppingCart.find(
+      (item) => item.id === product.id
+    );
+    if (productAlreadyInCart) {
+      productAlreadyInCart.quantity++;
+    } else {
+      let newProduct = { ...product, quantity: 1 };
+      newCart.push(newProduct);
+    }
+
+    setShoppingCart(newCart);
     Alerts.smallAlert("success", "Product added to cart successfully!");
   }
 

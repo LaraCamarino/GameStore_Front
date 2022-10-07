@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiMinus, FiPlus } from "react-icons/fi";
 
 import UserContext from "../contexts/UserContext";
 
@@ -13,8 +14,15 @@ export default function CartPage() {
   const { shoppingCart, setShoppingCart } = useContext(UserContext);
 
   let itemsPrice = 0;
-  const [promoCode, setPromoCode] = useState();
+  const [disabled, setDisabled] = useState(true);
+  const [promoCode, setPromoCode] = useState("");
   const [discount, setDiscount] = useState(0);
+
+  useEffect(() => {
+    if (shoppingCart.length > 0) {
+      setDisabled(false);
+    }
+  }, [shoppingCart]);
 
   function EmptyCart() {
     return (
@@ -25,21 +33,21 @@ export default function CartPage() {
     );
   }
 
-  function ItemCart({ image, name, price, position }) {
+  function ItemCart({ image, name, price, id, quantity }) {
     return (
       <Item>
         <div>
           <img src={image} alt=" "></img>
           <h1>{name}</h1>
         </div>
+        <Quantity>
+          <FiMinus onClick={() => addOrRemoveOneItem("remove", id)}></FiMinus>
+          <h2>{quantity}</h2>
+          <FiPlus onClick={() => addOrRemoveOneItem("add", id)}></FiPlus>
+        </Quantity>
         <div>
-          <button>-</button>
-          <h2>NUM</h2>
-          <button>+</button>
-        </div>
-        <div>
-          <h3>${price}</h3>
-          <h4 onClick={() => deleteItem(position)}>X</h4>
+          <h3>${price * quantity}</h3>
+          <h4 onClick={() => removeItemFromCart(id)}>X</h4>
         </div>
       </Item>
     );
@@ -49,15 +57,38 @@ export default function CartPage() {
     return (
       <PromoCodeBox>
         <h1>PROMO CODE</h1>
-        <input
-          type="number"
-          placeholder="Enter promo code here."
-          value={promoCode}
-          onChange={(e) => setPromoCode(e.target.value)}
-        ></input>
-        <button onClick={() => setDiscount(promoCode)}>OK</button>
+
+        <form onSubmit={addPromoCode}>
+          <input
+            disabled={disabled}
+            type="text"
+            placeholder="Enter promo code here."
+            value={promoCode}
+            onChange={(e) => setPromoCode(e.target.value)}
+          ></input>
+          <PromoButton>
+            <button disabled={disabled} type="submit">
+              OK
+            </button>
+          </PromoButton>
+        </form>
+
+        {discount > 0 ? (
+          <Codes>
+            <h2>{discount}</h2>
+            <p onClick={() => setDiscount(0)}>X</p>
+          </Codes>
+        ) : (
+          <></>
+        )}
       </PromoCodeBox>
     );
+  }
+
+  function addPromoCode(event) {
+    event.preventDefault();
+    setDiscount(promoCode);
+    setPromoCode("");
   }
 
   function assembleCart() {
@@ -69,21 +100,45 @@ export default function CartPage() {
             image={item.imageUrl}
             name={item.name}
             price={item.price}
-            position={index}
+            id={item.id}
+            quantity={item.quantity}
           />
         ))}
       </CartContainer>
     );
   }
 
-  function deleteItem(position) {
-    setShoppingCart(shoppingCart.filter((item, index) => index !== position));
+  function addOrRemoveOneItem(operation, id) {
+    let newCart = [...shoppingCart];
+    let productAlreadyInCart = shoppingCart.find((item) => item.id === id);
+    if (productAlreadyInCart && operation === "add") {
+      productAlreadyInCart.quantity++;
+    }
+    if (productAlreadyInCart && operation === "remove") {
+      productAlreadyInCart.quantity--;
+    }
+
+    setShoppingCart(newCart);
   }
+
+  function removeItemFromCart(id) {
+    setShoppingCart(shoppingCart.filter((item) => item.id !== id));
+  }
+
+  function checkItemQuantity() {
+    shoppingCart.forEach((item) => {
+      if (item.quantity <= 0) {
+        removeItemFromCart(item.id);
+      }
+    });
+  }
+
+  useEffect(() => checkItemQuantity(), [shoppingCart]);
 
   function calculatePrices() {
     let itemsSum = 0;
     shoppingCart.forEach((item) => {
-      itemsSum = itemsSum + parseFloat(item.price);
+      itemsSum = itemsSum + parseFloat(item.price * item.quantity);
     });
     itemsPrice = itemsSum;
     return (
@@ -105,6 +160,18 @@ export default function CartPage() {
     );
   }
 
+  function goToCheckOut() {
+    let token = localStorage.getItem("token");
+    if (!token) {
+      Alerts.warningAlert(
+        "Login necessary.",
+        "You must be logged in to checkout."
+      );
+    } else {
+      navigate("/checkout");
+    }
+  }
+
   return (
     <>
       <Page>
@@ -115,7 +182,7 @@ export default function CartPage() {
         <RightSide>
           <h1>Order Summary</h1>
           {calculatePrices()}
-          <PromoCode />
+          {PromoCode()}
           {calculatePriceWithDiscount()}
           {shoppingCart.length === 0 ? (
             <Button
@@ -129,7 +196,7 @@ export default function CartPage() {
               CHECKOUT
             </Button>
           ) : (
-            <Button onClick={() => navigate("/checkout")}>CHECKOUT</Button>
+            <Button onClick={() => goToCheckOut()}>CHECKOUT</Button>
           )}
         </RightSide>
       </Page>
@@ -218,6 +285,19 @@ const Item = styled.div`
     font-size: 15px;
     font-weight: 700;
     text-align: end;
+    cursor: pointer;
+  }
+`;
+
+const Quantity = styled.div`
+  h2 {
+    margin: 0px 10px;
+  }
+  svg {
+    width: 15px;
+    height: 15px;
+    color: #ffff;
+    cursor: pointer;
   }
 `;
 
@@ -258,10 +338,9 @@ const SubTotal = styled.div`
 `;
 
 const PromoCodeBox = styled.div`
-  margin-top: 20px;
+  margin-top: 15px;
   padding-top: 15px;
   border-top: 2px solid #2e2e2f;
-  position: relative;
 
   h1 {
     font-size: 18px;
@@ -288,8 +367,13 @@ const PromoCodeBox = styled.div`
       font-family: "Montserrat";
     }
   }
+`;
+
+const PromoButton = styled.div`
+  position: relative;
+
   button {
-    width: 20%;
+    width: 54px;
     height: 40px;
     border-radius: 6px;
     border: none;
@@ -302,7 +386,7 @@ const PromoCodeBox = styled.div`
     text-transform: uppercase;
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 0px;
 
     :active,
     :focus,
@@ -313,11 +397,28 @@ const PromoCodeBox = styled.div`
   }
 `;
 
+const Codes = styled.div`
+  width: 75%;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h2,
+  p {
+    font-size: 13px;
+    color: #a4a4a4;
+  }
+
+  p {
+    cursor: pointer;
+  }
+`;
+
 const TotalPrice = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 15px;
   padding-top: 15px;
   border-top: 2px solid #2e2e2f;
 

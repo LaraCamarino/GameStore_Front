@@ -91,7 +91,18 @@ export default function ProductPage() {
   }
 
   function buyProduct() {
-    setShoppingCart([...shoppingCart, product]);
+    let newCart = [...shoppingCart];
+    let productAlreadyInCart = shoppingCart.find(
+      (item) => item.id === product.id
+    );
+    if (productAlreadyInCart) {
+      productAlreadyInCart.quantity++;
+    } else {
+      let newProduct = { ...product, quantity: 1 };
+      newCart.push(newProduct);
+    }
+
+    setShoppingCart(newCart);
   }
 
   return (

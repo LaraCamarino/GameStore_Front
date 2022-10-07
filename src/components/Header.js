@@ -1,3 +1,4 @@
+import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
@@ -7,23 +8,27 @@ import { HiOutlineUser } from "react-icons/hi";
 import UserContext from "../contexts/UserContext";
 import SearchBar from "./SearchBar";
 import Menu from "./Menu";
+import * as Alerts from "./Alerts";
 
 export default function Header() {
   const navigate = useNavigate();
 
   const { shoppingCart } = useContext(UserContext);
   const token = localStorage.getItem("token");
-  const username = localStorage.getItem("username");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   function CartNumber() {
+    let number = 0;
+    shoppingCart.forEach((item) => {
+      number += item.quantity;
+    });
     if (shoppingCart.length > 0) {
       return (
         <LittleBall>
-          <p>{shoppingCart.length}</p>
+          <p>{number}</p>
         </LittleBall>
       );
     } else {
@@ -37,11 +42,33 @@ export default function Header() {
     } else {
       return (
         <>
-          <h1>{username}</h1>
-          <HiOutlineUser></HiOutlineUser>
+          <HiOutlineUser onClick={() => logoutUser()}></HiOutlineUser>
         </>
       );
     }
+  }
+
+  function logoutUser() {
+    const token = localStorage.getItem("token");
+
+    const URL = "http://localhost:5000/sign-out";
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const promise = axios.delete(URL, config);
+
+    promise.then((res) => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      Alerts.smallAlert("success", "User logged out successfully.");
+      navigate("/");
+    });
+    promise.catch((err) => {
+      Alerts.errorAlert(err.response.data);
+    });
   }
 
   return (
@@ -126,13 +153,6 @@ const UserBox = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-
-  h1 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #ffff;
-    margin-right: 5px;
-  }
 `;
 
 const SignInLink = styled(Link)`
