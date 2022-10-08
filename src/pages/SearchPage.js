@@ -53,7 +53,7 @@ export default function SearchPage() {
               <Product onClick={() => navigate(`/product/${product.id}`)}>
                 <Image src={product.imageUrl}></Image>
                 <h1>{product.name}</h1>
-                <h2>${product.price}</h2>
+                <h2>${product.price / 100}</h2>
               </Product>
               <button
                 onClick={() => {
@@ -146,7 +146,7 @@ const ProductBox = styled.div`
     border-radius: 20px;
     border: none;
     outline: none;
-    background: linear-gradient(90deg, #743ad5, #d53a9d);
+    background: linear-gradient(90deg, #772aff, #2196f3);
     background-size: 200%;
     position: absolute;
     right: 40px;

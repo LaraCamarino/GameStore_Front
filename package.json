@@ -11,7 +11,8 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "^4.0.3",
     "styled-components": "^5.3.6",
-    "sweetalert2": "^11.4.36"
+    "sweetalert2": "^11.4.36",
+    "swiper": "^8.4.3"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,7 +1,7 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { HiOutlineUser } from "react-icons/hi";
 
@@ -15,6 +15,23 @@ export default function Header() {
 
   const { shoppingCart } = useContext(UserContext);
   const token = localStorage.getItem("token");
+
+  const userMenuRef = useRef();
+  const [openUserMenu, setOpenUserMenu] = useState(false);
+
+  useEffect(() => {
+    function closeDropDown(event) {
+      if (event.path[0] !== userMenuRef.current) {
+        setOpenUserMenu(false);
+      }
+    }
+
+    document.body.addEventListener("click", closeDropDown);
+
+    return () => {
+      document.body.removeEventListener("click", closeDropDown);
+    };
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,7 +59,16 @@ export default function Header() {
     } else {
       return (
         <>
-          <HiOutlineUser onClick={() => logoutUser()}></HiOutlineUser>
+          <UserIcon
+            ref={userMenuRef}
+            onClick={() => setOpenUserMenu(!openUserMenu)}
+            open={openUserMenu}
+          >
+            <HiOutlineUser></HiOutlineUser>
+          </UserIcon>
+          <UserMenu open={openUserMenu}>
+            <h1 onClick={() => logoutUser()}>Logout</h1>
+          </UserMenu>
         </>
       );
     }
@@ -107,7 +133,7 @@ export default function Header() {
 }
 
 const ContainerHeader = styled.div`
-  background-color: #3b3b3c;
+  background-color: #1d1d1e;
   margin-bottom: 50px;
   padding: 20px 30px;
 `;
@@ -120,6 +146,7 @@ const TopContainer = styled.div`
 `;
 
 const LeftSide = styled.div`
+  width: 160px;
   display: flex;
   align-items: center;
 `;
@@ -132,11 +159,14 @@ const BrandLogo = styled.h1`
   }
 `;
 
-const RightSide = styled.div``;
+const RightSide = styled.div`
+  width: 160px;
+  display: flex;
+  justify-content: end;
+`;
 
 const Icons = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   position: relative;
 
@@ -148,20 +178,6 @@ const Icons = styled.div`
   }
 `;
 
-const UserBox = styled.div`
-  margin-right: 15px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-`;
-
-const SignInLink = styled(Link)`
-  font-size: 18px;
-  font-weight: 500;
-  color: #ffff;
-  text-decoration: none;
-`;
-
 const LittleBall = styled.div`
   width: 18px;
   height: 18px;
@@ -169,7 +185,7 @@ const LittleBall = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 20px;
-  background: linear-gradient(90deg, #743ad5, #d53a9d);
+  background: linear-gradient(90deg, #772aff, #2196f3);
   background-size: 200%;
   position: absolute;
   right: -6px;
@@ -182,6 +198,53 @@ const LittleBall = styled.div`
     font-weight: 700;
     color: white;
   }
+`;
+
+const UserBox = styled.div`
+  height: 28px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+const UserIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => (!props.open ? "none" : "#545456")};
+  border-radius: 6px;
+  padding: 3px 3px 10px;
+  cursor: pointer;
+
+  img,
+  svg {
+    pointer-events: none;
+  }
+`;
+
+const UserMenu = styled.div`
+  display: ${(props) => (!props.open ? "none" : "flex")};
+  background-color: #545456;
+  border-radius: 6px;
+  padding: 10px 25px 7px 7px;
+  position: absolute;
+  right: 0px;
+  bottom: -32px;
+
+  h1 {
+    cursor: pointer;
+    font-weight: 600;
+  }
+`;
+
+const SignInLink = styled(Link)`
+  font-size: 18px;
+  font-weight: 500;
+  color: #ffff;
+  text-decoration: none;
+  padding-top: 5px;
+  cursor: pointer;
 `;
 
 const BottomContainer = styled.div``;

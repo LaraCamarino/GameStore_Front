@@ -1,3 +1,4 @@
+import axios from "axios";
 import styled from "styled-components";
 import { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +7,7 @@ import { FiMinus, FiPlus } from "react-icons/fi";
 import UserContext from "../contexts/UserContext";
 
 import * as Alerts from "../components/Alerts";
-import SadEmptyCart from "../assets/empty-cart.png";
+import SadEmptyCart from "../assets/images/empty-cart.png";
 
 export default function CartPage() {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ export default function CartPage() {
             key={index}
             image={item.imageUrl}
             name={item.name}
-            price={item.price}
+            price={item.price / 100}
             id={item.id}
             quantity={item.quantity}
           />
@@ -138,7 +139,7 @@ export default function CartPage() {
   function calculatePrices() {
     let itemsSum = 0;
     shoppingCart.forEach((item) => {
-      itemsSum = itemsSum + parseFloat(item.price * item.quantity);
+      itemsSum = itemsSum + parseFloat((item.price / 100) * item.quantity);
     });
     itemsPrice = itemsSum;
     return (
@@ -168,7 +169,24 @@ export default function CartPage() {
         "You must be logged in to checkout."
       );
     } else {
-      navigate("/checkout");
+      const URL = "http://localhost:5000/checkout";
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const body = shoppingCart.map((item) => {
+        return { productId: item.id, quantity: item.quantity };
+      });
+
+      const promise = axios.post(URL, body, config);
+
+      promise.then((res) => {
+        window.location = res.data;
+      });
+      promise.catch((err) => {
+        Alerts.errorAlert(err.response.data);
+      });
     }
   }
 
@@ -304,7 +322,7 @@ const Quantity = styled.div`
 const RightSide = styled.div`
   width: 30%;
   height: 400px;
-  background-color: #3b3b3c;
+  background-color: #242426;
   padding: 30px;
 
   h1 {
@@ -378,7 +396,7 @@ const PromoButton = styled.div`
     border-radius: 6px;
     border: none;
     outline: none;
-    background: linear-gradient(90deg, #743ad5, #d53a9d);
+    background: linear-gradient(90deg, #772aff, #2196f3);
     background-size: 400%;
     font-size: 15px;
     font-weight: 700;
@@ -441,7 +459,7 @@ const Button = styled.button`
   border-radius: 6px;
   border: none;
   outline: none;
-  background: linear-gradient(90deg, #743ad5, #d53a9d);
+  background: linear-gradient(90deg, #772aff, #2196f3);
   background-size: 400%;
   margin-top: 30px;
   padding: 16px 20px;

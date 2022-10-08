@@ -5,9 +5,11 @@ export default function Menu() {
   return (
     <MenuContainer>
       <Links to="/">Home</Links>
-      <Links to="/categories/sports">Sports</Links>
-      <Links to="/categories/simulation">Simulation</Links>
+      <Links to="/categories/adventure">Adventure</Links>
       <Links to="/categories/rpg">RPG</Links>
+      <Links to="/categories/shooter">Shooter</Links>
+      <Links to="/categories/simulation">Simulation</Links>
+      <Links to="/categories/sports">Sports</Links>
     </MenuContainer>
   );
 }

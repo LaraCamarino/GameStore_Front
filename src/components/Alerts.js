@@ -26,7 +26,7 @@ export function errorAlert(message) {
     text: message,
     icon: "error",
     confirmButtonText: "OK",
-    confirmButtonColor: "#743ad5",
+    confirmButtonColor: "#606AFA",
   });
 }
 
@@ -36,6 +36,6 @@ export function warningAlert(title, message) {
     text: message,
     icon: "warning",
     confirmButtonText: "OK",
-    confirmButtonColor: "#743ad5",
+    confirmButtonColor: "#606AFA",
   });
 }

@@ -131,7 +131,7 @@ const Input = styled.input`
   outline: none;
   border: none;
   border-bottom: 2px solid;
-  border-image: linear-gradient(90deg, #743ad5, #d53a9d);
+  border-image: linear-gradient(90deg, #772aff, #2196f3);
   border-image-slice: 1;
   background: none;
   color: #ffff;
@@ -157,7 +157,7 @@ const Button = styled.button`
   border-radius: 6px;
   border: none;
   outline: none;
-  background: linear-gradient(90deg, #743ad5, #d53a9d);
+  background: linear-gradient(90deg, #772aff, #2196f3);
   background-size: 400%;
   padding: 16px 20px;
   margin-top: 10px;

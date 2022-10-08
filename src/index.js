@@ -3,7 +3,7 @@ import React from "react";
 
 import App from "./App";
 
-import "./assets/reset.css";
-import "./assets/global.css";
+import "./assets/styles/reset.css";
+import "./assets/styles/global.css";
 
 ReactDOM.render(<App />, document.querySelector(".root"));
