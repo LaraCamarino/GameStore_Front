@@ -60,8 +60,8 @@ const Page = styled.div`
 `;
 
 const Banner = styled.div`
-  width: 80%;
-  height: 500px;
+  width: 80vw;
+  height: 80vh;
   margin-bottom: 50px;
   border-radius: 25px;
   border: 4px solid #fff;
@@ -69,8 +69,8 @@ const Banner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 0px #fff,
-    0 0 12px linear-gradient(235deg, #772aff, #2196f3);
+  box-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 0px #fff, 0 0 12px,
+    inset linear-gradient(235deg, #772aff, #2196f3);
   background-color: #171718;
 
   ::before {
@@ -97,18 +97,36 @@ const Banner = styled.div`
     filter: blur(25px);
     background: linear-gradient(235deg, #772aff, #2196f3);
   }
+
+  @media (max-width: 768px) {
+    height: 50vh;
+  }
+  @media (max-width: 475px) {
+    height: 40vh;
+  }
+  @media (max-width: 390px) {
+    height: 25vh;
+  }
 `;
 
 const Categories = styled.div`
-  width: 75%;
+  width: 80%;
   height: 350px;
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 7px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1.25fr;
+  grid-template-rows: 1fr 1fr;
   margin-bottom: 40px;
 
   div {
     border-radius: 15px;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    height: 800px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1.25fr;
   }
 `;
 
@@ -121,6 +139,11 @@ const FirstSquare = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
+
+  @media (max-width: 768px) {
+    grid-column: 1 / span 2;
+    grid-row: 1;
+  }
 `;
 
 const SecondSquare = styled.div`
@@ -132,6 +155,11 @@ const SecondSquare = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
+
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 2;
+  }
 `;
 
 const ThirdSquare = styled.div`
@@ -143,6 +171,11 @@ const ThirdSquare = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
+
+  @media (max-width: 768px) {
+    grid-column: 2;
+    grid-row: 2;
+  }
 `;
 
 const FourthSquare = styled.div`
@@ -154,6 +187,11 @@ const FourthSquare = styled.div`
   background-repeat: no-repeat;
   background-position: top;
   position: relative;
+
+  @media (max-width: 768px) {
+    grid-column: 1;
+    grid-row: 3 / span 2;
+  }
 `;
 
 const FifthSquare = styled.div`
@@ -165,4 +203,9 @@ const FifthSquare = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   position: relative;
+
+  @media (max-width: 768px) {
+    grid-column: 2;
+    grid-row: 3 / span 2;
+  }
 `;

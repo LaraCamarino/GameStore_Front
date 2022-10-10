@@ -22,7 +22,10 @@ export default function Carousel() {
       pagination={{
         clickable: true,
       }}
-      navigation={true}
+      navigation={{
+        nextEl: "swiper-button-next",
+        prevEl: "swiper-button-prev",
+      }}
       loop={true}
     >
       <SwiperSlide>

@@ -41,14 +41,16 @@ export default function CartPage() {
           <img src={image} alt=" "></img>
           <h1>{name}</h1>
         </div>
-        <Quantity>
-          <FiMinus onClick={() => addOrRemoveOneItem("remove", id)}></FiMinus>
-          <h2>{quantity}</h2>
-          <FiPlus onClick={() => addOrRemoveOneItem("add", id)}></FiPlus>
-        </Quantity>
         <div>
-          <h3>${price * quantity}</h3>
-          <h4 onClick={() => removeItemFromCart(id)}>X</h4>
+          <Quantity>
+            <FiMinus onClick={() => addOrRemoveOneItem("remove", id)}></FiMinus>
+            <h2>{quantity}</h2>
+            <FiPlus onClick={() => addOrRemoveOneItem("add", id)}></FiPlus>
+          </Quantity>
+          <div>
+            <h3>${price * quantity}</h3>
+            <h4 onClick={() => removeItemFromCart(id)}>X</h4>
+          </div>
         </div>
       </Item>
     );
@@ -229,7 +231,7 @@ const Page = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 945px) {
     height: auto;
     flex-direction: column;
     align-items: center;
@@ -237,7 +239,7 @@ const Page = styled.div`
 `;
 
 const Cart = styled.div`
-  margin-top: 100px;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -245,10 +247,19 @@ const Cart = styled.div`
 
   img {
     width: 325px;
-    height: 175px;
+    height: 195px;
   }
   h1 {
     color: #787878;
+  }
+
+  @media (max-width: 390px) {
+    margin-top: 55px;
+
+    img {
+      width: 280px;
+      height: 150px;
+    }
   }
 `;
 
@@ -256,24 +267,30 @@ const LeftSide = styled.div`
   width: 60%;
   margin-right: 50px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 945px) {
     width: 80%;
     margin-right: 0;
+    margin-bottom: 50px;
   }
 `;
 
 const Title = styled.h1`
   font-size: 50px;
+  font-weight: 700;
   display: flex;
   justify-content: flex-start;
   margin-bottom: 40px;
+
+  @media (max-width: 460px) {
+    font-size: 35px;
+  }
 `;
 
 const CartContainer = styled.div``;
 
 const Item = styled.div`
   margin-bottom: 10px;
-  padding: 10px 15px;
+  padding: 10px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -291,10 +308,10 @@ const Item = styled.div`
     width: 300px;
     font-size: 15px;
     font-weight: 700;
-    margin-right: 25px;
+    margin-right: 10px;
   }
   h3 {
-    font-size: 17px;
+    font-size: 15px;
     color: #787878;
     margin: 0px 15px 0px 25px;
     text-align: end;
@@ -305,10 +322,26 @@ const Item = styled.div`
     text-align: end;
     cursor: pointer;
   }
+
+  @media (max-width: 710px) {
+    img {
+      width: 45px;
+      height: 60px;
+    }
+    h1 {
+      width: 45%;
+    }
+    h1,
+    h3,
+    h4 {
+      font-size: 10px;
+    }
+  }
 `;
 
 const Quantity = styled.div`
   h2 {
+    font-size: 15px;
     margin: 0px 10px;
   }
   svg {
@@ -316,6 +349,16 @@ const Quantity = styled.div`
     height: 15px;
     color: #ffff;
     cursor: pointer;
+  }
+
+  @media (max-width: 710px) {
+    h2 {
+      font-size: 10px;
+    }
+    svg {
+      width: 10px;
+      height: 10px;
+    }
   }
 `;
 
@@ -331,8 +374,14 @@ const RightSide = styled.div`
     margin-bottom: 40px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 945px) {
     width: 80%;
+  }
+
+  @media (max-width: 460px) {
+    h1 {
+      font-size: 25px;
+    }
   }
 `;
 
@@ -411,6 +460,13 @@ const PromoButton = styled.div`
     :hover {
       cursor: pointer;
       border-color: black;
+    }
+  }
+
+  @media (max-width: 460px) {
+    button {
+      width: 40px;
+      height: 35px;
     }
   }
 `;

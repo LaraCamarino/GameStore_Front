@@ -186,4 +186,8 @@ const SignInLink = styled(Link)`
   font-weight: 700;
   color: #ffff;
   text-decoration: none;
+
+  @media (max-width: 350px) {
+    font-size: 12px;
+  }
 `;

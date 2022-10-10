@@ -59,9 +59,11 @@ export default function ProductPage() {
           <MainInfo>
             <Image src={product.imageUrl}></Image>
             <Text>
-              <h1>{product.name}</h1>
-              <AdicionalInfo></AdicionalInfo>
-              <h2>${product.price / 100}</h2>
+              <Title>
+                <h1>{product.name}</h1>
+                <h2>Developer: {product.company}</h2>
+              </Title>
+              <h3>${product.price / 100}</h3>
               <Buttons>
                 <button
                   onClick={() => {
@@ -85,6 +87,7 @@ export default function ProductPage() {
               </Buttons>
             </Text>
           </MainInfo>
+          <AdicionalInfo></AdicionalInfo>
         </Container>
       </>
     );
@@ -150,21 +153,27 @@ const Text = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  h1 {
-    font-size: 50px;
-    font-weight: 700;
-    color: white;
-  }
-  h2 {
+  h3 {
     font-size: 30px;
     color: white;
   }
   @media (max-width: 913px) {
     padding: 15px;
     max-width: 375px;
-    h2 {
+    h3 {
       margin: 30px 0px;
     }
+  }
+`;
+
+const Title = styled.div`
+  h1 {
+    font-size: 50px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 20px;
   }
 `;
 

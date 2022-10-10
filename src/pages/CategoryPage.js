@@ -48,7 +48,6 @@ export default function CategoryPage() {
     if (products.length === 0) {
       return (
         <>
-          <Title>{category}</Title>
           <Text>There are no products yet.</Text>
         </>
       );
@@ -56,7 +55,6 @@ export default function CategoryPage() {
 
     return (
       <>
-        <Title>{category}</Title>
         {products.map((product, index) => (
           <ProductBox key={index}>
             <Product onClick={() => navigate(`/product/${product.id}`)}>
@@ -99,7 +97,10 @@ export default function CategoryPage() {
         {loading ? (
           <ThreeDots width={51} height={13} color="#FFFFFF" />
         ) : (
-          <Container>{assembleProducts()}</Container>
+          <>
+            <Title>{category}</Title>
+            <Container>{assembleProducts()}</Container>
+          </>
         )}
       </Page>
     </>
@@ -108,17 +109,21 @@ export default function CategoryPage() {
 
 const Page = styled.div`
   width: 100%;
-  padding: 50px;
+  padding: 0px 50px;
 `;
 
 const Title = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
   margin-bottom: 40px;
   font-size: 50px;
   text-transform: uppercase;
+
+  @media (max-width: 440px) {
+    font-size: 35px;
+  }
 `;
 
 const Text = styled.h1`

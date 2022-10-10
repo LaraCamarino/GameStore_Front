@@ -59,20 +59,30 @@ const SearchBarBox = styled.div`
     width: 25px;
     height: 25px;
     color: #3b3b3c;
-    top: 6px;
-    right: 12px;
+    top: 3px;
+    right: 9px;
     position: absolute;
     cursor: pointer;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 890px) {
     input {
       width: 350px;
+      font-size: 10px;
+    }
+  }
+  @media (max-width: 680px) {
+    input {
+      width: 190px;
+    }
+    svg {
+      width: 15px;
+      height: 15px;
     }
   }
   @media (max-width: 425px) {
     input {
-      width: 200px;
+      width: 100px;
     }
   }
 `;

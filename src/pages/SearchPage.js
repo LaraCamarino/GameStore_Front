@@ -91,12 +91,12 @@ export default function SearchPage() {
         {loading ? (
           <ThreeDots width={51} height={13} color="#FFFFFF" />
         ) : (
-          <Container>
+          <>
             <Title>
               Search results for: <h1>{productName}</h1>
             </Title>
-            {assembleSearchResults()}
-          </Container>
+            <Container>{assembleSearchResults()}</Container>
+          </>
         )}
       </Page>
     </>
@@ -105,20 +105,27 @@ export default function SearchPage() {
 
 const Page = styled.div`
   width: 100%;
-  padding: 50px;
+  padding: 0px 50px;
 `;
 
 const Title = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
   margin-bottom: 40px;
   font-size: 50px;
 
   h1 {
     margin-left: 10px;
     text-transform: uppercase;
+  }
+
+  @media (max-width: 680px) {
+    font-size: 30px;
+  }
+  @media (max-width: 440px) {
+    font-size: 18px;
   }
 `;
 

@@ -10,6 +10,8 @@ import SearchBar from "./SearchBar";
 import Menu from "./Menu";
 import * as Alerts from "./Alerts";
 
+import Logo from "../assets/images/logo.png";
+
 export default function Header() {
   const navigate = useNavigate();
 
@@ -106,7 +108,7 @@ export default function Header() {
               navigate("/");
             }}
           >
-            LOGO
+            <img src={Logo} alt=""></img>
           </BrandLogo>
         </LeftSide>
         <SearchBar />
@@ -136,31 +138,50 @@ const ContainerHeader = styled.div`
   background-color: #1d1d1e;
   margin-bottom: 50px;
   padding: 20px 30px;
+
+  @media (max-width: 768px) {
+    padding: 20px 20px;
+  }
+  @media (max-width: 425px) {
+    padding: 20px 10px;
+  }
 `;
 const TopContainer = styled.div`
   width: 100%;
-  height: 125px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const LeftSide = styled.div`
-  width: 160px;
+  width: 15%;
   display: flex;
   align-items: center;
 `;
 
 const BrandLogo = styled.h1`
   cursor: pointer;
+
   img {
-    width: 250px;
-    height: 60px;
+    width: 120px;
+    height: 115px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 40px #606afa, 0 0 16px #606afa,
+      0 0 20px #606afa, inset 0 0 15px #606afa;
+  }
+
+  @media (max-width: 680px) {
+    img {
+      width: 100px;
+      height: 90px;
+    }
   }
 `;
 
 const RightSide = styled.div`
-  width: 160px;
+  width: 15%;
   display: flex;
   justify-content: end;
 `;
@@ -175,6 +196,13 @@ const Icons = styled.div`
     height: 25px;
     color: #ffffff;
     cursor: pointer;
+  }
+
+  @media (max-width: 680px) {
+    svg {
+      width: 15px;
+      height: 15px;
+    }
   }
 `;
 
@@ -198,6 +226,17 @@ const LittleBall = styled.div`
     font-weight: 700;
     color: white;
   }
+
+  @media (max-width: 680px) {
+    width: 12px;
+    height: 12px;
+    right: -4px;
+    bottom: 1px;
+
+    p {
+      font-size: 10px;
+    }
+  }
 `;
 
 const UserBox = styled.div`
@@ -206,6 +245,7 @@ const UserBox = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: center;
 `;
 
 const UserIcon = styled.div`
@@ -213,8 +253,9 @@ const UserIcon = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${(props) => (!props.open ? "none" : "#545456")};
-  border-radius: 6px;
-  padding: 3px 3px 10px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding: 3px 3px 0px;
   cursor: pointer;
 
   img,
@@ -226,7 +267,9 @@ const UserIcon = styled.div`
 const UserMenu = styled.div`
   display: ${(props) => (!props.open ? "none" : "flex")};
   background-color: #545456;
-  border-radius: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
   padding: 10px 25px 7px 7px;
   position: absolute;
   right: 0px;
@@ -235,6 +278,11 @@ const UserMenu = styled.div`
   h1 {
     cursor: pointer;
     font-weight: 600;
+  }
+
+  @media (max-width: 680px) {
+    font-size: 8px;
+    bottom: -20px;
   }
 `;
 
@@ -245,6 +293,13 @@ const SignInLink = styled(Link)`
   text-decoration: none;
   padding-top: 5px;
   cursor: pointer;
+
+  @media (max-width: 980px) {
+    font-size: 12px;
+  }
+  @media (max-width: 650px) {
+    font-size: 8px;
+  }
 `;
 
 const BottomContainer = styled.div``;
