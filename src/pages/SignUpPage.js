@@ -70,7 +70,7 @@ export default function SignUpPage() {
   function signUp(event) {
     event.preventDefault();
 
-    const URL = "http://localhost:5000/sign-up";
+    const URL = "https://project-gamestore.herokuapp.com/sign-up";
 
     setLoading(true);
 

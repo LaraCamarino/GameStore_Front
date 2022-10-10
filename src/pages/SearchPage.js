@@ -21,7 +21,7 @@ export default function SearchPage() {
   function searchDataBase() {
     setLoading(true);
 
-    const URL = `http://localhost:5000/products/search/${productName}`;
+    const URL = `https://project-gamestore.herokuapp.com/products/search/${productName}`;
 
     const promise = axios.get(URL);
 

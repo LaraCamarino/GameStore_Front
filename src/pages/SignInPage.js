@@ -47,7 +47,7 @@ export default function SignInPage() {
   function signIn(event) {
     event.preventDefault();
 
-    const URL = "http://localhost:5000/sign-in";
+    const URL = "https://project-gamestore.herokuapp.com/sign-in";
 
     setLoading(true);
 

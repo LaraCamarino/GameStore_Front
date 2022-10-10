@@ -19,7 +19,7 @@ export default function CategoryPage() {
   const [products, setProducts] = useState([]);
 
   function getProductsByCategory() {
-    const URL = `http://localhost:5000/products/categories/${category}`;
+    const URL = `https://project-gamestore.herokuapp.com/products/categories/${category}`;
 
     const promise = axios.get(URL);
     setLoading(true);

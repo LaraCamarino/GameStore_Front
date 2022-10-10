@@ -171,7 +171,7 @@ export default function CartPage() {
         "You must be logged in to checkout."
       );
     } else {
-      const URL = "http://localhost:5000/checkout";
+      const URL = "https://project-gamestore.herokuapp.com/checkout";
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,

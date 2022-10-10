@@ -19,7 +19,7 @@ export default function ProductPage() {
   const [product, setProduct] = useState([]);
 
   function getProductById() {
-    const URL = `http://localhost:5000/products/${productId}`;
+    const URL = `https://project-gamestore.herokuapp.com/products/${productId}`;
 
     const promise = axios.get(URL);
     setLoading(true);
